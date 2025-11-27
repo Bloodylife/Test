@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Dynamic Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particles"></canvas>
+    
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+        <span class="sun">☀️</span>
+        <span class="moon">🌙</span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-text">ULTRA</span>
+            <span class="logo-accent">DYNAMIC</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#showcase" class="nav-link">Showcase</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="WELCOME">WELCOME</h1>
+            <p class="typewriter">Experience the future of web design</p>
+            <div class="hero-buttons">
+                <a href="#features" class="btn btn-primary pulse">Explore</a>
+                <a href="#contact" class="btn btn-secondary">Get Started</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2 class="section-title reveal">Amazing Features</h2>
+        <div class="features-grid">
+            <div class="feature-card reveal-left">
+                <div class="card-icon">🚀</div>
+                <h3>Lightning Fast</h3>
+                <p>Optimized performance for the smoothest experience possible.</p>
+                <div class="card-glow"></div>
+            </div>
+            <div class="feature-card reveal-up">
+                <div class="card-icon">✨</div>
+                <h3>Dynamic Effects</h3>
+                <p>Stunning animations and transitions that captivate users.</p>
+                <div class="card-glow"></div>
+            </div>
+            <div class="feature-card reveal-right">
+                <div class="card-icon">📱</div>
+                <h3>Fully Responsive</h3>
+                <p>Perfect experience on any device, any screen size.</p>
+                <div class="card-glow"></div>
+            </div>
+            <div class="feature-card reveal-left">
+                <div class="card-icon">🎨</div>
+                <h3>Beautiful Design</h3>
+                <p>Modern aesthetics with attention to every detail.</p>
+                <div class="card-glow"></div>
+            </div>
+            <div class="feature-card reveal-up">
+                <div class="card-icon">🔒</div>
+                <h3>Secure</h3>
+                <p>Built with security best practices in mind.</p>
+                <div class="card-glow"></div>
+            </div>
+            <div class="feature-card reveal-right">
+                <div class="card-icon">🌐</div>
+                <h3>Global Ready</h3>
+                <p>Accessible and optimized for worldwide audiences.</p>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section id="showcase" class="showcase">
+        <h2 class="section-title reveal">Interactive Showcase</h2>
+        <div class="showcase-container">
+            <div class="interactive-box" id="tilt-card">
+                <div class="box-content">
+                    <h3>3D Tilt Effect</h3>
+                    <p>Hover over me!</p>
+                </div>
+            </div>
+            <div class="color-mixer">
+                <h3>Color Mixer</h3>
+                <div class="sliders">
+                    <label>
+                        R: <input type="range" id="red" min="0" max="255" value="99">
+                    </label>
+                    <label>
+                        G: <input type="range" id="green" min="0" max="255" value="102">
+                    </label>
+                    <label>
+                        B: <input type="range" id="blue" min="0" max="255" value="241">
+                    </label>
+                </div>
+                <div id="color-preview" class="color-preview"></div>
+            </div>
+            <div class="counter-box">
+                <h3>Interactive Counter</h3>
+                <div class="counter-display">
+                    <button class="counter-btn minus">−</button>
+                    <span id="counter-value">0</span>
+                    <button class="counter-btn plus">+</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <span class="stat-number" data-target="1000">0</span>
+            <span class="stat-label">Happy Users</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="500">0</span>
+            <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="99">0</span>
+            <span class="stat-label">% Satisfaction</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="24">0</span>
+            <span class="stat-label">/7 Support</span>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title reveal">Get In Touch</h2>
+        <form id="contact-form" class="contact-form reveal-up">
+            <div class="form-group">
+                <input type="text" id="name" required>
+                <label for="name">Your Name</label>
+                <div class="input-line"></div>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" required>
+                <label for="email">Your Email</label>
+                <div class="input-line"></div>
+            </div>
+            <div class="form-group">
+                <textarea id="message" rows="4" required></textarea>
+                <label for="message">Your Message</label>
+                <div class="input-line"></div>
+            </div>
+            <button type="submit" class="btn btn-primary submit-btn">
+                <span>Send Message</span>
+                <div class="btn-effect"></div>
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-text">ULTRA</span>
+                <span class="logo-accent">DYNAMIC</span>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+                <a href="#" class="social-link" aria-label="GitHub">⌨</a>
+                <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+            </div>
+            <p class="copyright">© 2024 Ultra Dynamic. All rights reserved.</p>
+        </div>
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,50 C150,100 350,0 500,50 C650,100 850,0 1000,50 C1150,100 1350,0 1440,50 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
