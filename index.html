@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grok's Ultra Cosmic Cafe</title>
+    <style>
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #0f0f23;
+            --text-color: #fff;
+            --bg-gradient: linear-gradient(135deg, #0f0f23, #1a1a3e, #2a1a3e);
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+        body.night { --bg-gradient: linear-gradient(135deg, #000428, #004e92, #000428); }
+        body.day { --bg-gradient: linear-gradient(135deg, #667eea, #764ba2, #f093fb); }
+        header {
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            background: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 {
+            font-size: 3.5em;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow { from { text-shadow: 2px 2px 8px rgba(255,107,53,0.5); } to { text-shadow: 2px 2px 20px rgba(255,107,53,1); } }
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin: 10px 0;
+        }
+        .menu {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .menu-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .menu-item:hover::before { left: 100%; }
+        .menu-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+        }
+        .menu-item h3 { margin: 0 0 10px; font-size: 1.5em; }
+        .menu-item p { margin: 0; opacity: 0.8; }
+        .price { font-weight: bold; color: var(--primary-color); }
+        .order-form {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.8s ease-out;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .order-form input, .order-form select, .order-form button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        .order-form input, .order-form select { background: rgba(255,255,255,0.2); color: var(--text-color); }
+        .order-form button {
+            background: var(--primary-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        .order-form button:hover { background: #e55a2b; }
+        .order-form button:disabled { background: #666; cursor: not-allowed; }
+        #cart {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
+            display: none;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            animation: bounceIn 0.5s ease-out;
+        }
+        @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.05); } 70% { transform: scale(0.9); } 100% { transform: scale(1); opacity: 1; } }
+        .cart-total { font-size: 1.2em; font-weight: bold; text-align: right; margin-top: 20px; color: var(--primary-color); }
+        .remove-btn { background: #ff4757; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        footer {
+            padding: 20px;
+            text-align: center;
+            opacity: 0.7;
+            margin-top: 50px;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .menu { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <header>
+        <h1>🌌 Grok's Ultra Cosmic Cafe</h1>
+        <p class="subtitle">Dynamic vibes where orders orbit and stars serve. Built by xAI – Now with real-time cart & cosmic effects!</p>
+    </header>
+    
+    <section class="menu" id="menu">
+        <h2 style="grid-column: 1 / -1; text-align: center;">Stellar Menu (Click to Add!)</h2>
+        <!-- Menu items will be dynamically inserted here -->
+    </section>
+    
+    <section class="order-form">
+        <h2>Quick Order</h2>
+        <select id="itemSelect">
+            <option value="">Select an Item...</option>
+        </select>
+        <input type="number" id="quantity" min="1" placeholder="Quantity" value="1">
+        <button onclick="addToCart()">Add to Cart 🚀</button>
+    </section>
+    
+    <section id="cart">
+        <h2>Your Cosmic Cart</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal">$0.00</div>
+        <button onclick="clearCart()" style="background: #ff4757; width: auto; margin: 10px auto; display: block;">Clear Cart</button>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 xAI. Remix this code – make it your own galaxy!</p>
+    </footer>
+
+    <script>
+        // Dynamic menu data
+        const menuItems = [
+            { name: 'Quantum Quiche', price: 9.99, desc: 'Flaky pastry with entangled eggs.' },
+            { name: 'Black Hole Brew', price: 4.99, desc: 'Coffee that warps time.' },
+            { name: 'Nebula Nosh', price: 6.99, desc: 'Cookies dusted with stardust.' },
+            { name: 'Event Horizon Espresso', price: 5.49, desc: 'Extra strong – no escape.' },
+            { name: 'Supernova Sundae', price: 12.99, desc: 'Explosive flavors in a bowl.' }
+        ];
+
+        // Render menu dynamically
+        const menuEl = document.getElementById('menu');
+        menuItems.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'menu-item';
+            div.innerHTML = `
+                <h3>${item.name}</h3>
+                <p>${item.desc}</p>
+                <p class="price">\[ {item.price.toFixed(2)}</p>
+            `;
+            div.onclick = () => selectItem(index);
+            menuEl.appendChild(div);
+        });
+
+        // Order form logic
+        let cart = JSON.parse(localStorage.getItem('cosmicCart')) || [];
+        updateCartDisplay();
+        updateSelectOptions();
+
+        function selectItem(index) {
+            document.getElementById('itemSelect').value = index;
+            document.getElementById('quantity').focus();
+        }
+
+        function updateSelectOptions() {
+            const select = document.getElementById('itemSelect');
+            select.innerHTML = '<option value="">Select an Item...</option>' + 
+                menuItems.map((item, i) => `<option value="\( {i}"> \){item.name} - \]{item.price.toFixed(2)}</option>`).join('');
+        }
+
+        function addToCart() {
+            const index = parseInt(document.getElementById('itemSelect').value);
+            const qty = parseInt(document.getElementById('quantity').value) || 1;
+            if (index === '' || qty <= 0) return alert('Pick an item and quantity!');
+
+            const item = { ...menuItems[index], quantity: qty };
+            const existing = cart.find(c => c.name === item.name);
+            if (existing) {
+                existing.quantity += qty;
+            } else {
+                cart.push(item);
+            }
+            localStorage.setItem('cosmicCart', JSON.stringify(cart));
+            updateCartDisplay();
+            document.getElementById('itemSelect').value = '';
+            document.getElementById('quantity').value = 1;
+            // Animate button
+            const btn = event.target;
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 150);
+        }
+
+        function updateCartDisplay() {
+            const cartEl = document.getElementById('cart');
+            const itemsEl = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            if (cart.length === 0) {
+                cartEl.style.display = 'none';
+                return;
+            }
+            cartEl.style.display = 'block';
+            itemsEl.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <span>\( {item.name} x \){item.quantity}</span>
+                    <span>\[ {(item.price * item.quantity).toFixed(2)}</span>
+                    <button class="remove-btn" onclick="removeFromCart('${item.name}')">Remove</button>
+                </div>
+            `).join('');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalEl.textContent = `Total: \]{total.toFixed(2)}`;
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            localStorage.setItem('cosmicCart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        function clearCart() {
+            cart = [];
+            localStorage.removeItem('cosmicCart');
+            updateCartDisplay();
+        }
+
+        // Dynamic particles for ultra flair
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('particles').appendChild(particle);
+            setTimeout(() => particle.remove(), 6000);
+        }
+        setInterval(createParticle, 300);
+
+        // Dynamic theme based on time (ultra dynamic!)
+        function updateTheme() {
+            const hour = new Date().getHours();
+            document.body.className = hour >= 6 && hour < 18 ? 'day' : 'night';
+        }
+        updateTheme();
+        setInterval(updateTheme, 60000); // Update every minute
+
+        // Form validation
+        document.getElementById('quantity').addEventListener('input', function() {
+            if (this.value < 1) this.value = 1;
+        });
+    </script>
+</body>
+</html>
